@@ -47,10 +47,6 @@ export class DemoService {
     return this.cidi.queryOrderRecords(query);
   }
 
-  addTestCoin(gameToken: string, amount: number) {
-    return this.cidi.addTestCoin(gameToken, amount);
-  }
-
   reportMedal(body: Record<string, unknown>) {
     return this.cidi.reportMedal(body);
   }

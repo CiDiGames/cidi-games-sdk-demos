@@ -40,11 +40,6 @@ export class DemoController {
     return this.demo.queryOrderRecords(query);
   }
 
-  @Post('demo/test/coin/add')
-  addTestCoin(@Body('gameToken') gameToken: string, @Body('amount') amount: number) {
-    return this.demo.addTestCoin(gameToken, Number(amount));
-  }
-
   @Post('demo/medal/report')
   reportMedal(@Body() body: Record<string, unknown>) {
     return this.demo.reportMedal(body);

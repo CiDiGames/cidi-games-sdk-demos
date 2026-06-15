@@ -85,13 +85,6 @@ export class CidiOpenApiService {
     });
   }
 
-  async addTestCoin(gameToken: string, amount: number): Promise<CidiResponse> {
-    return this.request('POST', '/openapi/test/coin/add', {
-      body: { gameToken, amount },
-      signed: false
-    });
-  }
-
   private async request<T = unknown>(
     method: HttpMethod,
     path: string,

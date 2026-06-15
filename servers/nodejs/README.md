@@ -14,7 +14,6 @@ This demo shows how a game server can call CiDi OpenAPI endpoints with signed re
 - Reports medals, tournament scores, and daily tasks.
 - Queries report and task results.
 - Receives order payment callbacks and tournament score callbacks.
-- Includes the dev/test coin grant endpoint for integration testing.
 
 ## Setup
 
@@ -46,7 +45,6 @@ Edit `.env` before calling real CiDi APIs.
 | `POST` | `/demo/orders` | Create payment order |
 | `GET` | `/demo/orders/:orderNo` | Query order by CiDi order number |
 | `GET` | `/demo/orders/by-game-order/:gameOrderNo` | Query order by game order number |
-| `POST` | `/demo/test/coin/add` | Add test CiDiCoin in dev/test environment |
 | `POST` | `/callbacks/order-paid` | Receive signed order paid callback |
 | `POST` | `/callbacks/tournament-score` | Receive tournament score result callback |
 
