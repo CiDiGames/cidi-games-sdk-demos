@@ -4,10 +4,25 @@ This demo shows a Cocos Creator 2.x client connecting to a demo server.
 
 ## Setup
 
-1. Start a server from `../../servers/`.
-2. Open this folder in Cocos Creator 2.x.
-3. Apply values based on `../../shared/config-examples/offline.example.json`.
-4. Run the demo scene and trigger server-backed actions.
+1. Open this folder with Cocos Creator 2.4.x.
+2. Open `assets/demo.fire`.
+3. Attach `assets/scripts/root.js` to a scene node if it is not already attached.
+4. Set `proxyApiKey` on the `root.js` component to the assigned CIDI proxy API key.
+5. Keep `autoCreateButtons` enabled if you want the demo scene to create test buttons at runtime.
+6. Build for `web-mobile` or `web-desktop`.
+7. Confirm the generated HTML contains these scripts in `<head>`:
+
+```html
+<script src="https://elf-resource.cidi.games/sdk/cidi-proxy-sdk.umd.js"></script>
+<script src="https://app.cidi.games/sdk/cidi-sdk.js"></script>
+```
+
+8. Run the web build and call `CidiSdk.initCidiSdk()` before entering the game.
+
+The build templates already include the required SDK scripts:
+
+- `build-templates/web-mobile/index.html`
+- `build-templates/web-desktop/index.html`
 
 ## Notes
 
