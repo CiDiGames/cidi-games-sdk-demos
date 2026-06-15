@@ -1,0 +1,11 @@
+{
+  "mode": "offline",
+  "environment": "local",
+  "server": {
+    "baseUrl": "http://localhost:3000",
+    "timeoutMs": 10000
+  },
+  "client": {
+    "demoPlayerId": "demo-player-001"
+  }
+}
