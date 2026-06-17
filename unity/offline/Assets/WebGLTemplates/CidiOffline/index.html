@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #231f20; }
+    #unity-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    #unity-canvas { width: 100%; height: 100%; display: block; background: #231f20; }
+    #unity-loading {
+      position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%);
+      text-align: center; color: #cfcfcf; font-size: 14px;
+      font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    }
+  </style>
+  <script src="https://elf-resource.cidi.games/sdk/cidi-proxy-sdk.umd.js"></script>
+  <script src="https://app.cidi.games/sdk/cidi-sdk.js"></script>
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas" width="{{{ WIDTH }}}" height="{{{ HEIGHT }}}" tabindex="-1"></canvas>
+    <div id="unity-loading">Loading… <span id="unity-progress">0%</span></div>
+  </div>
+
+  <script>
+    var canvas = document.querySelector("#unity-canvas");
+    var loading = document.querySelector("#unity-loading");
+    var progress = document.querySelector("#unity-progress");
+
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
+    var config = {
+      dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+      frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+      codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+#if MEMORY_FILENAME
+      memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+      symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+#endif
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "{{{ COMPANY_NAME }}}",
+      productName: "{{{ PRODUCT_NAME }}}",
+      productVersion: "{{{ PRODUCT_VERSION }}}",
+    };
+
+    function loadUnityLoader() {
+      return new Promise(function (resolve, reject) {
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = resolve;
+        script.onerror = function () { reject(new Error("loader failed")); };
+        document.body.appendChild(script);
+      });
+    }
+
+    function startUnity() {
+      return createUnityInstance(canvas, config, function (p) {
+        progress.textContent = Math.round(p * 100) + "%";
+      }).then(function (instance) {
+        window.unityInstance = instance;
+        loading.style.display = "none";
+      });
+    }
+
+    // Initialize CiDiSDK first; only start Unity after it succeeds.
+    (async function boot() {
+      try {
+        if (!window.CiDiSDK || typeof window.CiDiSDK.init !== "function") {
+          throw new Error("CiDiSDK is not loaded.");
+        }
+
+        await window.CiDiSDK.init();
+      } catch (e) {
+        loading.textContent = "Initialization failed. Please restart the app.";
+        return;
+      }
+      await loadUnityLoader();
+      await startUnity();
+    })();
+  </script>
+</body>
+</html>
