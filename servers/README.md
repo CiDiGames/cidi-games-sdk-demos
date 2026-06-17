@@ -13,10 +13,6 @@ Some server demos show online server-side OpenAPI integration. Others may suppor
 - [Java](java/README.md)
 - [Go](go/README.md)
 
-## API Contract
+## Notes
 
-All server implementations should follow `../shared/protocol/api-contract.md`.
-
-## Configuration
-
-Use `../shared/config-examples/offline.example.json` as the common client/server configuration reference.
+Keep server behavior aligned with the client demo that calls it. Each server folder can document its own configuration and endpoint details.

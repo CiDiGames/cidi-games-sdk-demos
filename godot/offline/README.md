@@ -6,9 +6,9 @@ This demo shows a Godot client connecting to a demo server.
 
 1. Start a server from `../../servers/`.
 2. Open this folder in Godot.
-3. Apply values based on `../../shared/config-examples/offline.example.json`.
+3. Configure the demo server base URL and assigned CIDI proxy API key.
 4. Run the demo scene and trigger server-backed actions.
 
 ## Notes
 
-Keep server API behavior aligned with `../../shared/protocol/api-contract.md`.
+Keep server API behavior aligned with the server implementation used by this demo.

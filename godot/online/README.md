@@ -6,7 +6,7 @@ This demo shows direct CIDI Game SDK integration from a Godot client.
 
 1. Open this folder in Godot.
 2. Import the CIDI Game SDK according to the SDK documentation.
-3. Apply values based on `../../shared/config-examples/online.example.json`.
+3. Configure SDK values according to the official integration documentation.
 4. Run the demo scene.
 
 ## Notes

@@ -9,7 +9,7 @@ This demo shows a Unity WebGL client using the CIDI offline SDK flow through a b
 3. Open `Assets/Scenes/Main.unity`.
 4. Select the WebGL platform.
 5. Select the `CidiOffline` WebGL template under Player Settings.
-6. Apply values based on `../../shared/config-examples/offline.example.json`.
+6. Configure the demo server base URL and assigned CIDI proxy API key.
 7. Build and run the WebGL demo.
 
 ## Required Head Scripts
@@ -80,6 +80,6 @@ Do not move SDK initialization into Unity after the WebGL runtime has already st
 
 ## Notes
 
-Keep server API behavior aligned with `../../shared/protocol/api-contract.md`.
+Keep server API behavior aligned with the server implementation used by this demo.
 
 This demo is intended to demonstrate client-side integration logic. Production report data should still be validated, processed, and stored by your backend service according to your game rules.

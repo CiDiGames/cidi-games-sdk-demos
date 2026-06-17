@@ -8,4 +8,4 @@ Go server demo for CIDI Game SDK offline mode.
 
 ## Expected Endpoints
 
-Implement the shared API contract from `../../shared/protocol/api-contract.md`.
+Document the endpoints implemented by this demo server before using it from a client demo.

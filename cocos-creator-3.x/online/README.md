@@ -9,7 +9,7 @@ Official integration documentation: https://developdoc.cidi.games/
 1. Open this folder in Cocos Creator 3.x.
 2. Import the CIDI Game SDK according to the SDK documentation.
 3. Add `assets/scripts/root.ts` to the default scene, usually on the `Canvas` node.
-4. Apply values based on `../../shared/config-examples/online.example.json`.
+4. Configure SDK values according to the official integration documentation.
 5. Run the demo scene.
 
 ## Key Integration Points

@@ -26,7 +26,7 @@ The build templates already include the required SDK scripts:
 
 ## Notes
 
-Keep server API behavior aligned with `../../shared/protocol/api-contract.md`.
+Keep server API behavior aligned with the server implementation used by this demo.
 
 ## Critical Integration Requirements
 

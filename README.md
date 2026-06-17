@@ -2,11 +2,11 @@
 
 CIDI Game SDK demos for Cocos Creator 2.x, Cocos Creator 3.x, Unity, Godot, and Web.
 
-This repository contains demo projects, documentation, configuration examples, protocol notes, and demo server implementations for integrating the CIDI Game SDK.
+This repository contains demo projects and demo server implementations for integrating the CIDI Game SDK.
 
 Official documentation: [https://developdoc.cidi.games/](https://developdoc.cidi.games/)
 
-SDK source code is not included in this repository. See [SDK Version](docs/sdk-version.md) for the expected SDK version and acquisition notes.
+SDK source code is not included in this repository. Follow the official documentation for SDK version requirements and acquisition notes.
 
 ## Demo Layout
 
@@ -25,11 +25,7 @@ Choose your client platform first, then choose the integration mode:
 - Online mode: the game client integrates with the CIDI Game SDK directly.
 - Offline mode: the game client connects to a demo server, and server-side examples demonstrate related capabilities.
 
-See:
-
-- [Online Mode](docs/online-mode.md)
-- [Offline Mode](docs/offline-mode.md)
-- [Troubleshooting](docs/troubleshooting.md)
+Each demo folder contains its own README with mode-specific setup notes.
 
 ## Server-Side Demos
 
@@ -39,13 +35,6 @@ Server-side examples live under [servers](servers/README.md). They can be used f
 - [Python](servers/python/README.md)
 - [Java](servers/java/README.md)
 - [Go](servers/go/README.md)
-
-## Shared Resources
-
-- [Online config example](shared/config-examples/online.example.json)
-- [Offline config example](shared/config-examples/offline.example.json)
-- [Test accounts template](shared/test-accounts.example.md)
-- [API contract notes](shared/protocol/api-contract.md)
 
 ## Repository Policy
 

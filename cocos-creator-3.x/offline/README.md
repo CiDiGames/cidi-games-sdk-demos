@@ -11,7 +11,7 @@ Official integration documentation: https://developdoc.cidi.games/
 3. Add `assets/scripts/root.ts` to the default scene, usually on the `Canvas` node.
 4. Set `proxyApiKey` on the `root.ts` component to the assigned CIDI proxy API key.
 5. Keep `autoCreateButtons` enabled if you want the demo scene to create test buttons at runtime.
-6. Apply values based on `../../shared/config-examples/offline.example.json`.
+6. Configure the demo server base URL and assigned CIDI proxy API key.
 7. Run the demo scene and trigger proxy-backed actions.
 
 ## Required Head Scripts
@@ -73,4 +73,4 @@ For rewarded ads, only `result.success === true` is treated as success.
 
 ## Notes
 
-Keep server API behavior aligned with `../../shared/protocol/api-contract.md`.
+Keep server API behavior aligned with the server implementation used by this demo.

@@ -1,9 +1,0 @@
-{
-  "mode": "online",
-  "environment": "sandbox",
-  "appId": "replace-with-demo-app-id",
-  "sdk": {
-    "version": "replace-with-sdk-version",
-    "logLevel": "debug"
-  }
-}
