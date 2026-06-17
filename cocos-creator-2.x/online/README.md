@@ -92,6 +92,12 @@ Available server methods:
 - `queryGameTaskResult(query)`
 - `queryReport(reportId)`
 
+## Report Data Handling
+
+Report APIs in this online demo only show the client-side call flow. In a real integration, report data should be sent to your backend service first. The backend is responsible for validating player identity, checking request integrity, applying business rules, storing the report result, and calling any required CIDI server-side APIs.
+
+Do not treat this demo as a production data processing implementation. It is intended to demonstrate how the game client organizes SDK and backend requests.
+
 ## Notes
 
 SDK source code and private credentials should not be committed.

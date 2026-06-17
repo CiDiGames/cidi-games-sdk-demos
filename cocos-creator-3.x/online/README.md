@@ -2,12 +2,47 @@
 
 This demo shows direct CIDI Game SDK integration from a Cocos Creator 3.x client.
 
+Official integration documentation: https://developdoc.cidi.games/
+
 ## Setup
 
 1. Open this folder in Cocos Creator 3.x.
 2. Import the CIDI Game SDK according to the SDK documentation.
-3. Apply values based on `../../shared/config-examples/online.example.json`.
-4. Run the demo scene.
+3. Add `assets/scripts/root.ts` to the default scene, usually on the `Canvas` node.
+4. Apply values based on `../../shared/config-examples/online.example.json`.
+5. Run the demo scene.
+
+## Key Integration Points
+
+1. Call `CidiSdk.initCidiSdk()` successfully before entering the game. If initialization fails, stop the flow and show an error.
+2. Use `window.localStorage` for local persistence in this Web build demo. Do not use `cc.sys.localStorage`.
+
+## Required Head Script
+
+The build and preview templates include the required SDK script in `<head>`:
+
+```html
+<script src="https://app.cidi.games/sdk/cidi-sdk.js"></script>
+```
+
+Templates are located at:
+
+- `build-templates/web-desktop/index.ejs`
+- `build-templates/web-mobile/index.ejs`
+- `preview-template/index.ejs`
+
+## Scripts
+
+- `assets/scripts/cidi-sdk.ts`: direct online CIDI SDK access through `window.CiDiSDK`.
+- `assets/scripts/root.ts`: demo scene component that creates test buttons at runtime.
+- `assets/scripts/storage.ts`: local storage wrapper based on `window.localStorage`.
+- `assets/scripts/cidi-backend.ts`: fetch wrapper for the Node.js demo server APIs.
+
+## Report Data Handling
+
+Report APIs in this online demo only show the client-side call flow. In a real integration, report data should be sent to your backend service first. The backend is responsible for validating player identity, checking request integrity, applying business rules, storing the report result, and calling any required CIDI server-side APIs.
+
+Do not treat this demo as a production data processing implementation. It is intended to demonstrate how the game client organizes SDK and backend requests.
 
 ## Notes
 
