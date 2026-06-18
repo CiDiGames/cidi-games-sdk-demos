@@ -31,12 +31,12 @@ Templates are located at:
 
 ## Critical Integration Requirements
 
-There are two required integration points for this offline demo:
+All Cocos demos in this repository must follow these requirements:
 
-1. Call `CidiSdk.initCidiSdk()` before entering the game. Continue into the game only after the promise resolves successfully. If initialization fails, show an error state and stop the game entry flow.
-2. Use `window.localStorage` for local storage. Do not use `cc.sys.localStorage` in this demo. Because of the runtime environment used by the CIDI SDK scripts, browser storage must be accessed through `window.localStorage`.
+1. Call `window.CiDiSDK.init()` and wait for it to resolve successfully before entering the game. If initialization fails, show an error message and stop the game entry flow.
+2. Use `window.localStorage` for local persistence. Do not use `cc.sys.localStorage`. Because the CIDI SDK runs in the browser page environment, SDK-related storage must be accessed through `window.localStorage`.
 
-The local storage wrapper in `assets/scripts/storage.ts` intentionally uses `window.localStorage`.
+The local storage wrapper in this demo intentionally uses `window.localStorage`.
 
 ## Offline SDK Demo Script
 

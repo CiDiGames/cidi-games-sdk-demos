@@ -12,10 +12,14 @@ Official integration documentation: https://developdoc.cidi.games/
 4. Configure SDK values according to the official integration documentation.
 5. Run the demo scene.
 
-## Key Integration Points
+## Critical Integration Requirements
 
-1. Call `CidiSdk.initCidiSdk()` successfully before entering the game. If initialization fails, stop the flow and show an error.
-2. Use `window.localStorage` for local persistence in this Web build demo. Do not use `cc.sys.localStorage`.
+All Cocos demos in this repository must follow these requirements:
+
+1. Call `window.CiDiSDK.init()` and wait for it to resolve successfully before entering the game. If initialization fails, show an error message and stop the game entry flow.
+2. Use `window.localStorage` for local persistence. Do not use `cc.sys.localStorage`. Because the CIDI SDK runs in the browser page environment, SDK-related storage must be accessed through `window.localStorage`.
+
+The local storage wrapper in this demo intentionally uses `window.localStorage`.
 
 ## Required Head Script
 
