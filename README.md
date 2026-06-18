@@ -1,6 +1,6 @@
 # CIDI Game SDK Demos
 
-CIDI Game SDK demos for Cocos Creator 2.x, Cocos Creator 3.x, Unity, Godot, and Web.
+CIDI Game SDK demos for Cocos Creator 2.x, Cocos Creator 3.x, Unity, and Godot.
 
 This repository contains demo projects and demo server implementations for integrating the CIDI Game SDK.
 
@@ -18,7 +18,6 @@ Choose your client platform first, then choose the integration mode:
 | Cocos Creator 3.x | [cocos-creator-3.x/online](cocos-creator-3.x/online/README.md) | [cocos-creator-3.x/offline](cocos-creator-3.x/offline/README.md) |
 | Unity | [unity/online](unity/online/README.md) | [unity/offline](unity/offline/README.md) |
 | Godot | [godot/online](godot/online/README.md) | [godot/offline](godot/offline/README.md) |
-| Web | [web/online](web/online/README.md) | [web/offline](web/offline/README.md) |
 
 ## Integration Modes
 

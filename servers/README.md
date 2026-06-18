@@ -2,7 +2,7 @@
 
 This folder contains shared server-side demo implementations.
 
-Server demos are shared by Cocos Creator, Unity, Godot, and Web clients. Do not duplicate server implementations inside client folders.
+Server demos are shared by Cocos Creator, Unity, and Godot clients. Do not duplicate server implementations inside client folders.
 
 Some server demos show online server-side OpenAPI integration. Others may support offline mode demo flows.
 
