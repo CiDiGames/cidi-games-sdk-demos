@@ -43,11 +43,11 @@ Unity WebGL cannot call browser SDK objects directly from C#. `Assets/Plugins/We
 
 Promise results are sent back to Unity with `SendMessage`.
 
-## Unity Startup and Local Storage
+## Unity Startup
 
 Unity WebGL runs inside its own runtime container, while the CIDI SDK scripts run in the surrounding browser page. Because of this separation, local storage and SDK state must be prepared by the page before the Unity runtime starts.
 
-For this demo, Unity must not be loaded until `window.CiDiSDK.init()` has completed successfully. If initialization fails, the page should stop before loading Unity and show an error state. This is required before using Unity-side storage or any SDK-dependent game flow.
+For this demo, Unity must not be loaded until `window.CiDiSDK.init()` has completed successfully. If initialization fails, the page should stop before loading Unity and show an error state.
 
 The important startup flow is implemented in `Assets/WebGLTemplates/CidiOffline/index.html`:
 
@@ -74,9 +74,12 @@ Do not move SDK initialization into Unity after the WebGL runtime has already st
 
 ## Critical Integration Requirements
 
-1. Initialize `CiDiSDK` before entering the game. The WebGL template starts Unity only after `window.CiDiSDK.init()` succeeds.
-2. Configure the assigned CIDI proxy apiKey before calling proxy APIs.
-3. Use browser-side storage and SDK APIs through the WebGL bridge when running inside WebGL.
+All Unity demos in this repository must follow these requirements:
+
+1. Call `window.CiDiSDK.init()` and wait for it to resolve successfully before loading the Unity game code. If initialization fails, show an error message and do not start Unity.
+2. Use Unity `PlayerPrefs` for local persistence inside the Unity project.
+
+Configure the assigned CIDI proxy apiKey before calling proxy APIs in this offline demo.
 
 ## Notes
 

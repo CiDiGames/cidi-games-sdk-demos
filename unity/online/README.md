@@ -19,19 +19,14 @@ The WebGL template loads the online SDK script in the HTML `<head>`:
 <script src="https://app.cidi.games/sdk/cidi-sdk.js"></script>
 ```
 
-## Unity Startup Requirement
+## Critical Integration Requirements
 
-Unity WebGL runs inside an isolated browser runtime, so SDK initialization must happen before the Unity runtime starts. The custom WebGL template follows this order:
+All Unity demos in this repository must follow these requirements:
 
-1. Load `cidi-sdk.js`.
-2. Call `window.CiDiSDK.init()`.
-3. Start the Unity loader only after initialization succeeds.
+1. Call `window.CiDiSDK.init()` and wait for it to resolve successfully before loading the Unity game code. If initialization fails, show an error message and do not start Unity.
+2. Use Unity `PlayerPrefs` for local persistence inside the Unity project.
 
-Do not move the first SDK initialization into Unity after the runtime has already started. If SDK initialization fails, the template stops booting Unity and shows an initialization failure message.
-
-## Local Storage Requirement
-
-For this demo environment, use browser `window.localStorage` for local persistence. Do not rely on Unity storage wrappers for SDK-related browser data, because the SDK reads and writes storage from the host page environment.
+The WebGL template implements this startup order in `Assets/WebGLTemplates/CidiOnline/index.html`. Do not move the first SDK initialization into Unity after the runtime has already started.
 
 ## Setup
 
