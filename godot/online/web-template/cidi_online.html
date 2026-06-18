@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>$GODOT_PROJECT_NAME</title>
+  $GODOT_HEAD_INCLUDE
+  <script src="https://app.cidi.games/sdk/cidi-sdk.js"></script>
+  <style>
+    html,
+    body {
+      background: #14171c;
+      color: #f4f7fb;
+      font-family: Arial, Helvetica, sans-serif;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    #canvas {
+      display: block;
+      height: 100%;
+      outline: none;
+      width: 100%;
+    }
+
+    #status {
+      align-items: center;
+      display: flex;
+      inset: 0;
+      justify-content: center;
+      line-height: 1.5;
+      padding: 24px;
+      position: fixed;
+      text-align: center;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="status">Initializing CIDI SDK...</div>
+  <script src="$GODOT_URL"></script>
+  <script>
+    const status = document.getElementById("status");
+
+    function setStatus(message) {
+      status.textContent = message;
+    }
+
+    class CidiBridge {
+      constructor() {
+        this.resultCallback = null;
+        this.ready = false;
+      }
+
+      sdk() {
+        if (!window.CiDiSDK || typeof window.CiDiSDK.init !== "function") {
+          throw new Error("CiDiSDK is not loaded.");
+        }
+
+        return window.CiDiSDK;
+      }
+
+      async init() {
+        if (this.ready) {
+          return true;
+        }
+
+        await this.sdk().init();
+        this.ready = true;
+        return true;
+      }
+
+      isReady() {
+        return this.ready;
+      }
+
+      showRewardedAd(args = {}) {
+        this.run("showRewardedAd", () => this.callRewardedAd(args));
+        return true;
+      }
+
+      async callRewardedAd(args = {}) {
+        const sdk = this.sdk();
+        if (typeof sdk.showRewardedAd !== "function") {
+          throw new Error("CiDiSDK rewarded ad API is not loaded.");
+        }
+
+        const result = await sdk.showRewardedAd({ timeout: args.timeout || 30000 });
+        if (result && result.success !== true) {
+          const error = new Error("Rewarded ad did not return success.");
+          error.code = "CIDI_REWARDED_AD_FAILED";
+          throw error;
+        }
+
+        return result || true;
+      }
+
+      setStorageValue(key, value) {
+        try {
+          window.localStorage.setItem(key, JSON.stringify(value));
+          return true;
+        } catch (error) {
+          console.warn("[CIDI Demo Storage] set failed", this.errorMessage(error));
+          return false;
+        }
+      }
+
+      getStorageValue(key) {
+        try {
+          return window.localStorage.getItem(key) || "";
+        } catch (error) {
+          console.warn("[CIDI Demo Storage] get failed", this.errorMessage(error));
+          return "";
+        }
+      }
+
+      removeStorageValue(key) {
+        try {
+          window.localStorage.removeItem(key);
+          return true;
+        } catch (error) {
+          console.warn("[CIDI Demo Storage] remove failed", this.errorMessage(error));
+          return false;
+        }
+      }
+
+      setResultCallback(callback) {
+        this.resultCallback = callback;
+      }
+
+      run(action, task) {
+        task()
+          .then((result) => this.emitResult(action, this.toSuccess(result)))
+          .catch((error) => this.emitResult(action, this.toFailure(error)));
+      }
+
+      emitResult(action, value) {
+        if (this.resultCallback) {
+          this.resultCallback(action, JSON.stringify(value));
+        }
+      }
+
+      toSuccess(result) {
+        return {
+          success: true,
+          result: this.normalize(result),
+          code: "",
+          message: ""
+        };
+      }
+
+      toFailure(error) {
+        return {
+          success: false,
+          result: null,
+          code: error && error.code ? String(error.code) : "",
+          message: error && error.message ? String(error.message) : (error ? String(error) : "")
+        };
+      }
+
+      normalize(value) {
+        if (typeof value === "undefined") {
+          return null;
+        }
+
+        try {
+          return JSON.parse(JSON.stringify(value));
+        } catch (error) {
+          return String(value);
+        }
+      }
+
+      errorMessage(error) {
+        return error && error.message ? error.message : String(error);
+      }
+    }
+
+    window.CidiGodotOnline = (() => {
+      const bridge = new CidiBridge();
+
+      return {
+        init: () => bridge.init(),
+        isReady: () => bridge.isReady(),
+        setResultCallback: (callback) => bridge.setResultCallback(callback),
+        showRewardedAd: (args) => bridge.showRewardedAd(args),
+        storage: {
+          set: (key, value) => bridge.setStorageValue(key, value),
+          get: (key) => bridge.getStorageValue(key),
+          remove: (key) => bridge.removeStorageValue(key)
+        }
+      };
+    })();
+
+    (async function boot() {
+      try {
+        const engine = new Engine($GODOT_CONFIG);
+        await window.CidiGodotOnline.init();
+        setStatus("Starting game...");
+        await engine.startGame();
+        status.style.display = "none";
+      } catch (error) {
+        console.error("[CIDI Demo] Startup failed", error);
+        setStatus(error && error.message ? error.message : "Initialization failed. Please restart the app.");
+      }
+    })();
+  </script>
+</body>
+</html>

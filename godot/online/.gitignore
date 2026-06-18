@@ -1,0 +1,9 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+/build/
+/output/
+
+# Local editor assistant plugin, not part of the demo runtime
+/addons/godot_ai/
+/godot-ai-LICENSE.txt
